@@ -21,55 +21,88 @@ const SECTION_VH = 100;                     // CSS vh of scroll per section (100
 const TRANS_VH   = 15;                      // last N vh → wipe transition
 const PLAY_VH    = SECTION_VH - TRANS_VH;  // 85 vh → normal playback
 
-// ─── Section data ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────
+//  EDIT TEXT HERE
+//  Each section has one or two text overlays.
+//  start / end = scroll progress (0–1) within that section when
+//  the text is visible. 0.15–0.75 is a comfortable reading window.
+// ─────────────────────────────────────────────────────────────────
 const SECTIONS = [
   {
     videoId: 'v0',
     texts: [
-      { start: 0.06, end: 0.40, label: 'Approach Path',      title: 'A Choreographed Arrival',    body: "The forecourt narrows deliberately as it reaches the threshold — a compression of space that heightens anticipation and slows the visitor's pace before they enter." },
-      { start: 0.52, end: 0.86, label: 'Roof Plane',         title: 'The Sheltering Canopy',      body: 'A shallow-pitched overhang extends beyond the facade, casting a measured band of shade that migrates across the stone paving with each passing season.' },
+      {
+        start: 0.15, end: 0.75,
+        label: 'Living Room',
+        title: 'Layered Light & Texture',
+        body:  'Warm timber slats draw the eye upward while natural light pools across the concrete floor — a space designed as much for atmosphere as for living.',
+      },
     ],
   },
   {
     videoId: 'v1',
     texts: [
-      { start: 0.06, end: 0.40, label: 'Facade Composition', title: 'Rhythm in Stone and Shadow', body: 'Vertical fins of hand-selected limestone filter direct sun while casting an ever-changing pattern of shadow across the elevation — a facade that moves with the light.' },
-      { start: 0.52, end: 0.86, label: 'Glazing System',     title: 'The Transparent Wall',       body: 'Full-height sliding panels of low-iron glass dissolve the perceived boundary between the interior and the terrace beyond — the building breathes with the outdoors.' },
+      {
+        start: 0.15, end: 0.75,
+        label: 'The Kitchen',
+        title: 'Bold Colour, Quiet Precision',
+        body:  'Handcrafted terracotta tiles meet matte cabinetry and black steel — a palette that feels both grounded and alive under the soft glow of recessed lighting.',
+      },
     ],
   },
   {
     videoId: 'v2',
     texts: [
-      { start: 0.06, end: 0.40, label: 'The Threshold',      title: 'An Architectural Pause',     body: 'A double-height entry void creates a moment of stillness before the main volumes unfold. The compressed ceiling of the approach releases dramatically into open space above.' },
-      { start: 0.52, end: 0.86, label: 'Material Palette',   title: 'Honesty of Material',        body: 'Board-formed concrete retains every grain of the timber formwork — raw, direct, unhidden. Against it, warm-toned timber joinery introduces domestic scale without decoration.' },
+      {
+        start: 0.15, end: 0.75,
+        label: 'Dining Area',
+        title: 'Where Meals Become Moments',
+        body:  'A generous stone table anchors the room without dominating it. Around it, seating in natural linen invites long evenings and unhurried conversation.',
+      },
     ],
   },
   {
     videoId: 'v3',
     texts: [
-      { start: 0.06, end: 0.40, label: 'Structural Grid',    title: 'Columns as Space-Makers',    body: 'Exposed concrete columns define zones without enclosing them. The plan flows freely between each upright — furniture clusters around the structure, making it part of daily life.' },
-      { start: 0.52, end: 0.86, label: 'Overhead Light',     title: 'A Blade of Sky',             body: 'A continuous north-facing rooflight draws daylight as a directed shaft. It traces a slow arc across the polished floor from east to west — a sundial built into the building.' },
+      {
+        start: 0.15, end: 0.75,
+        label: 'Master Bedroom',
+        title: 'Stillness, Considered',
+        body:  'Soft neutrals, a low platform bed, and blackout drapes reduce the room to its essentials — a retreat stripped of noise, built entirely for rest.',
+      },
     ],
   },
   {
     videoId: 'v4',
     texts: [
-      { start: 0.06, end: 0.40, label: 'The Hearth',         title: 'A Quiet Anchor',             body: 'A linear fireplace is recessed flush into the wall — no mantle, no surround, just a slot of warmth. Its stone face is indistinguishable from the wall until the flame reveals it.' },
-      { start: 0.52, end: 0.86, label: 'Textile and Texture', title: 'Warmth Through Material',   body: 'Undyed linen, hand-woven wool, and unpolished stone introduce tactile variation against the precision of the surrounding geometry — surfaces meant to be touched, not only seen.' },
+      {
+        start: 0.15, end: 0.75,
+        label: 'Study',
+        title: 'Focus in Form',
+        body:  'Floor-to-ceiling joinery conceals every necessity, leaving only a clear desk, a single pendant, and a window framing the sky — nothing competes for attention.',
+      },
     ],
   },
   {
     videoId: 'v5',
     texts: [
-      { start: 0.06, end: 0.40, label: 'Joinery Detail',     title: 'The Art of the Gap',         body: 'A 3 mm shadow reveal separates every cabinetry panel. There are no handles, no hardware — just light catching the edge of each plane, allowing the hand to find its way by touch.' },
-      { start: 0.52, end: 0.86, label: 'Stone Surface',      title: 'Geology as Ornament',        body: 'Honed marble is bookmatched across the island bench — each slab a mirror of the other, their veining a unique geological record laid down hundreds of millions of years ago.' },
+      {
+        start: 0.15, end: 0.75,
+        label: 'Bathroom',
+        title: 'The Ritual of Stone',
+        body:  'Bookmatched marble runs uninterrupted from floor to ceiling. Brushed brass fittings catch the light at dawn — the room functions as a daily ritual, not just a room.',
+      },
     ],
   },
   {
     videoId: 'v6',
     texts: [
-      { start: 0.06, end: 0.40, label: 'Site Relationship',  title: 'Building with the Land',     body: 'The footprint follows the existing contour line, terracing rather than cutting. No ground was removed that was not restored in landscape — the building settles into the site, not onto it.' },
-      { start: 0.52, end: 0.86, label: 'Landscape Edge',     title: 'Where Architecture Ends',    body: "Native grasses and indigenous stone drift against the building's base. There is no hard line between the built and the grown — the boundary dissolves, and architecture becomes land." },
+      {
+        start: 0.15, end: 0.75,
+        label: 'Terrace',
+        title: 'Inside, Dissolved',
+        body:  'Full-height glazing slides away entirely, erasing the threshold between the living room and the terrace — indoor comfort extending without interruption into open air.',
+      },
     ],
   },
 ];
@@ -255,6 +288,7 @@ function draw() {
     const progress = Math.max(0, Math.min(within / playPx, 1));
     seekTo(si, progress * (videos[si].duration || 0));
     hideFront();
+    updateText(si, progress);
   }
 
   updateDots(si);
@@ -334,4 +368,5 @@ function preload() {
 // ─── Boot ─────────────────────────────────────────────────────
 resizeCanvases();
 buildDots();
+buildTextPanels();
 preload();

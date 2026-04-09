@@ -91,35 +91,52 @@ body { background: var(--dark); color: var(--white); font-family: 'Georgia', ser
 .num-of      { font-size: 0.6rem;  letter-spacing: 0.06em; color: rgba(255,255,255,0.3); }
 
 /* ─── Text panels ────────────────────────────────────────────── */
-#text-layer { position: absolute; inset: 0; }
+#text-layer { position: absolute; inset: 0; pointer-events: none; }
 
 .text-panel {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 0 60px 52px;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.25) 45%, transparent 70%);
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 64px 56px;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.36) 40%,
+    transparent 70%
+  );
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transform: translateY(18px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
   pointer-events: none;
 }
 .text-panel.visible { opacity: 1; transform: none; }
 
 .t-label {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 0.56rem; letter-spacing: 0.5em; color: var(--gold);
-  text-transform: uppercase; margin-bottom: 12px;
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 0.58rem; letter-spacing: 0.48em;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 16px;
 }
 .t-label::before {
-  content: ''; display: block; width: 30px; height: 1px;
+  content: ''; display: block;
+  width: 28px; height: 1px;
   background: var(--gold); flex-shrink: 0;
 }
+
 .t-title {
-  font-size: clamp(1.5rem, 3vw, 2.9rem); font-weight: 400;
-  line-height: 1.15; letter-spacing: 0.04em; color: var(--white); margin-bottom: 14px;
+  font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+  font-weight: 400; font-style: italic;
+  line-height: 1.1; letter-spacing: 0.01em;
+  color: var(--white);
+  margin-bottom: 18px;
+  max-width: 640px;
 }
+
 .t-body {
-  font-size: clamp(0.78rem, 1vw, 0.93rem); line-height: 1.75;
-  letter-spacing: 0.035em; color: rgba(255,255,255,0.56); max-width: 520px;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  line-height: 1.8; letter-spacing: 0.03em;
+  color: rgba(255,255,255,0.6);
+  max-width: 480px;
+  font-style: normal;
 }
 
 /* ─── Nav dots ───────────────────────────────────────────────── */
@@ -163,8 +180,8 @@ footer {
 .f-mark { font-size: 0.78rem; letter-spacing: 0.5em; color: var(--white); }
 .f-copy { font-size: 0.62rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.24); }
 
-/* ─── Hide all text overlays ─────────────────────────────────── */
-#hdr, #section-num, #text-layer, #hint { display: none; }
+/* ─── Hide minimal chrome, keep text layer ───────────────────── */
+#hdr, #section-num, #hint { display: none; }
 
 /* ─── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 3px; }
