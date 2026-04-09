@@ -164,13 +164,11 @@ function onSeeked(idx, ctx) {
 let lastFrontIdx = -1;
 
 function setFrontClip(progress) {
-  // progress: 0 = front hidden (top clipped 100%), 1 = front fully visible
-  const topPct = (1 - progress) * 100;
-  frontClip.style.clipPath = `inset(${topPct.toFixed(3)}% 0 0 0)`;
+  frontClip.style.opacity = progress.toFixed(3);
 }
 
 function hideFront() {
-  frontClip.style.clipPath = 'inset(100% 0 0 0)';
+  frontClip.style.opacity = '0';
 }
 
 // ─── Text panels ──────────────────────────────────────────────

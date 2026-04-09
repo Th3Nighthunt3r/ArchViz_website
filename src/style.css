@@ -54,11 +54,11 @@ body { background: var(--dark); color: var(--white); font-family: 'Georgia', ser
   display: block;
 }
 
-/* Front canvas wrapper — JS controls clip-path for wipe-from-bottom */
+/* Front canvas wrapper — JS controls opacity for cross-fade */
 #front-clip {
   position: absolute; inset: 0;
-  clip-path: inset(100% 0 0 0);   /* starts fully hidden */
-  will-change: clip-path;
+  opacity: 0;
+  will-change: opacity;
 }
 #canvas-front { position: absolute; inset: 0; }
 
