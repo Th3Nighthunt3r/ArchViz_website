@@ -150,8 +150,8 @@ body { background: var(--dark); color: var(--white); font-family: 'Georgia', ser
 @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 
 /* ─── Scroll track ───────────────────────────────────────────── */
-/* 7 sections × 300 vh + 100 vh buffer. Provides page height for scroll. */
-#scroll-track { height: 2200vh; }
+/* 7 sections × 100 vh + 50 vh buffer. Provides page height for scroll. */
+#scroll-track { height: 750vh; }
 
 /* ─── Footer ─────────────────────────────────────────────────── */
 footer {

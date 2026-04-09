@@ -17,9 +17,9 @@
 import gsap from 'gsap';
 
 // ─── Scroll geometry ─────────────────────────────────────────
-const SECTION_VH = 300;                     // viewport heights of scroll per section
-const TRANS_VH   = 32;                      // last N vh → wipe transition
-const PLAY_VH    = SECTION_VH - TRANS_VH;  // 268 vh → normal playback
+const SECTION_VH = 100;                     // CSS vh of scroll per section (100 = 1 screen)
+const TRANS_VH   = 15;                      // last N vh → wipe transition
+const PLAY_VH    = SECTION_VH - TRANS_VH;  // 85 vh → normal playback
 
 // ─── Section data ─────────────────────────────────────────────
 const SECTIONS = [
@@ -209,7 +209,7 @@ function buildDots() {
     btn.className = 'dot' + (i === 0 ? ' on' : '');
     btn.setAttribute('aria-label', `Section ${i + 1}`);
     btn.addEventListener('click', () => {
-      window.scrollTo({ top: i * SECTION_VH * window.innerHeight + 2, behavior: 'smooth' });
+      window.scrollTo({ top: i * SECTION_VH * (window.innerHeight / 100) + 2, behavior: 'smooth' });
     });
     li.appendChild(btn);
     dotListEl.appendChild(li);
@@ -229,9 +229,10 @@ function updateDots(si) {
 function draw() {
   const scrollY = window.scrollY;
   const vh      = window.innerHeight;
-  const sectPx  = SECTION_VH * vh;
-  const playPx  = PLAY_VH    * vh;
-  const transPx = TRANS_VH   * vh;
+  const vhPx    = vh / 100;               // 1 CSS vh in pixels
+  const sectPx  = SECTION_VH * vhPx;
+  const playPx  = PLAY_VH    * vhPx;
+  const transPx = TRANS_VH   * vhPx;
 
   const si     = Math.min(Math.floor(scrollY / sectPx), SECTIONS.length - 1);
   const within = scrollY - si * sectPx;
