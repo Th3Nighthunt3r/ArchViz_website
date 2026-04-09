@@ -1,0 +1,26 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+npm-debug.log*
+.env
+.vscode/settings.json
+Thumbs.db
+
+# Raw source videos (large originals — only keep encoded public/ versions)
+Shot_1.mp4
+Shot_2.mp4
+Shot_3.mp4
+Shot_4.mp4
+Shot_5.mp4
+Shot_6.mp4
+Shot_7.mp4
+
+# Raw PNG sequences (not needed for web)
+shot0010/
+shot0020/
+shot0030/
+shot0040/
+shot0050/
+Shot0060/
+shot0070/

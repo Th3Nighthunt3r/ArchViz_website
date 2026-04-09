@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArchViz — Form &amp; Light</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+  <!-- ── Loader ─────────────────────────────────────────────── -->
+  <div id="loader">
+    <div class="loader-inner">
+      <p class="loader-wordmark">ARCHVIZ</p>
+      <div class="loader-track"><div id="loader-fill"></div></div>
+      <p class="loader-label" id="loader-label">Loading…</p>
+    </div>
+  </div>
+
+  <!-- ── Fixed viewer — videos decoded here, canvases display ── -->
+  <div id="viewer" aria-hidden="true">
+
+    <!-- Hidden video elements (7 total, muted, no controls) -->
+    <video id="v0" src="/Shot_1.mp4" preload="auto" muted playsinline></video>
+    <video id="v1" src="/Shot_2.mp4" preload="auto" muted playsinline></video>
+    <video id="v2" src="/Shot_3.mp4" preload="auto" muted playsinline></video>
+    <video id="v3" src="/Shot_4.mp4" preload="auto" muted playsinline></video>
+    <video id="v4" src="/Shot_5.mp4" preload="auto" muted playsinline></video>
+    <video id="v5" src="/Shot_6.mp4" preload="auto" muted playsinline></video>
+    <video id="v6" src="/Shot_7.mp4" preload="auto" muted playsinline></video>
+
+    <!-- Back canvas: current section -->
+    <canvas id="canvas-back"></canvas>
+
+    <!-- Front canvas: incoming section (wipe from bottom) -->
+    <div id="front-clip">
+      <canvas id="canvas-front"></canvas>
+    </div>
+
+  </div><!-- #viewer -->
+
+  <!-- ── UI (above the viewer) ─────────────────────────────── -->
+  <div id="ui">
+
+    <div id="scroll-prog"><div id="scroll-prog-fill"></div></div>
+
+    <header id="hdr">
+      <span class="hdr-mark">ARCHVIZ</span>
+      <span class="hdr-tag">Form &amp; Light</span>
+    </header>
+
+    <div id="section-num">
+      <span id="num-current">01</span><span class="num-of"> / 07</span>
+    </div>
+
+    <div id="text-layer"></div>
+
+    <nav id="dots"><ul id="dot-list"></ul></nav>
+
+    <div id="hint">
+      <span class="hint-text">Scroll to explore</span>
+      <span class="hint-arrow">↓</span>
+    </div>
+
+  </div><!-- #ui -->
+
+  <!-- ── Scroll track — makes the page tall enough to scroll ── -->
+  <div id="scroll-track"></div>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer>
+    <span class="f-mark">ARCHVIZ</span>
+    <span class="f-copy">&copy; 2025 — All rights reserved</span>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
