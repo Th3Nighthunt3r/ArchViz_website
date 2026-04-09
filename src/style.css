@@ -163,6 +163,9 @@ footer {
 .f-mark { font-size: 0.78rem; letter-spacing: 0.5em; color: var(--white); }
 .f-copy { font-size: 0.62rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.24); }
 
+/* ─── Hide all text overlays ─────────────────────────────────── */
+#hdr, #section-num, #text-layer, #hint { display: none; }
+
 /* ─── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--dark); }

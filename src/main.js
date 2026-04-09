@@ -253,13 +253,10 @@ function draw() {
     seekTo(si + 1, 0);
     setFrontClip(tp);
 
-    updateText(si, 0.9);
-
   } else {
     const progress = Math.max(0, Math.min(within / playPx, 1));
     seekTo(si, progress * (videos[si].duration || 0));
     hideFront();
-    updateText(si, progress);
   }
 
   updateDots(si);
@@ -285,7 +282,7 @@ function scheduleDraw() {
 // During normal playback: back canvas. During transition: front canvas.
 videos.forEach((video, idx) => {
   video.addEventListener('seeked', () => {
-    const si     = Math.min(Math.floor(window.scrollY / (SECTION_VH * window.innerHeight)), SECTIONS.length - 1);
+    const si     = Math.min(Math.floor(window.scrollY / (SECTION_VH * (window.innerHeight / 100))), SECTIONS.length - 1);
     const ctx    = (idx === si) ? ctxBack : ctxFront;
     onSeeked(idx, ctx);
   });
@@ -339,5 +336,4 @@ function preload() {
 // ─── Boot ─────────────────────────────────────────────────────
 resizeCanvases();
 buildDots();
-buildTextPanels();
 preload();
