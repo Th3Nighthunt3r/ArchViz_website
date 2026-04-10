@@ -347,22 +347,63 @@ function preload() {
     }, 400);
   }
 
-  videos.forEach((v, i) => {
-    const onMeta = () => {
-      metaDone++;
-      loaderFill.style.width = Math.round((metaDone / videos.length) * 100) + '%';
-      if (i === 0) tryLaunch();
-    };
+  function attachMetaListeners() {
+    videos.forEach((v, i) => {
+      const onMeta = () => {
+        metaDone++;
+        loaderFill.style.width = Math.round((metaDone / videos.length) * 100) + '%';
+        if (i === 0) tryLaunch();
+      };
 
-    if (v.readyState >= 1) {
-      onMeta();
-    } else {
-      v.addEventListener('loadedmetadata', onMeta, { once: true });
+      if (v.readyState >= 1) {
+        onMeta();
+      } else {
+        v.addEventListener('loadedmetadata', onMeta, { once: true });
+      }
+
+      // durationchange fires if duration was initially Infinity
+      v.addEventListener('durationchange', () => { if (i === 0) tryLaunch(); });
+    });
+  }
+
+  // ── Mobile unlock ─────────────────────────────────────────────
+  // Mobile browsers (iOS Safari especially) ignore preload="auto" and
+  // block video.currentTime seeks until the video has been "played"
+  // via a user gesture. We detect touch devices and require a tap first.
+  const isTouchDevice = navigator.maxTouchPoints > 0 || 'ontouchstart' in window;
+
+  if (isTouchDevice) {
+    loaderLabel.textContent = 'Tap to start';
+    loaderEl.style.cursor = 'pointer';
+
+    let unlocked = false;
+
+    function onFirstTouch() {
+      if (unlocked) return;
+      unlocked = true;
+      loaderLabel.textContent = 'Loading…';
+      loaderEl.style.cursor = '';
+
+      // Force metadata fetch (mobile ignores preload="auto")
+      videos.forEach(v => v.load());
+
+      // play→pause unlocks seeking on iOS Safari for all videos
+      const unlockPromises = videos.map(v =>
+        v.play()
+          .then(() => { v.pause(); v.currentTime = 0; })
+          .catch(() => {})
+      );
+
+      // After unlock, attach normal metadata listeners
+      Promise.all(unlockPromises).then(attachMetaListeners);
     }
 
-    // durationchange fires if duration was initially Infinity
-    v.addEventListener('durationchange', () => { if (i === 0) tryLaunch(); });
-  });
+    loaderEl.addEventListener('click',      onFirstTouch, { once: true });
+    loaderEl.addEventListener('touchend',   onFirstTouch, { once: true });
+  } else {
+    // Desktop: start loading immediately as before
+    attachMetaListeners();
+  }
 }
 
 // ─── Boot ─────────────────────────────────────────────────────
